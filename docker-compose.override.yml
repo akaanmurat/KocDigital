@@ -1,0 +1,39 @@
+version: '3.4'
+
+services:
+  kocdigitalpoc.consumer:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "80"
+    networks:
+      - kocdigitalpoc
+
+  kocdigitalpoc.producer:
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+    networks:
+      - kocdigitalpoc
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+
+  kocdigitalpoc.webapi:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - 2021:80
+    networks:
+      - kocdigitalpoc
+
+  kocdigitalpoc.rabbitmq:
+    networks:
+      - kocdigitalpoc
+
+  kocdigitalpoc.mssql:
+    networks:
+      - kocdigitalpoc
+
+networks:
+  kocdigitalpoc:
+    external: false
+    name: kocdigitalpoc

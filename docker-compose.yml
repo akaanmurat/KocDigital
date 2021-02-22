@@ -1,0 +1,45 @@
+version: '3.4'
+
+services:
+  kocdigitalpoc.consumer:
+    image: ${DOCKER_REGISTRY-}kocdigitalpocconsumer
+    build:
+      context: .
+      dockerfile: src/KocDigitalPOC.Consumer/Dockerfile
+    depends_on:
+      - kocdigitalpoc.rabbitmq
+      - kocdigitalpoc.producer
+
+  kocdigitalpoc.producer:
+    image: ${DOCKER_REGISTRY-}kocdigitalpocproducer
+    build:
+      context: .
+      dockerfile: src/KocDigitalPOC.Producer/Dockerfile
+    depends_on:
+      - kocdigitalpoc.rabbitmq
+
+  kocdigitalpoc.webapi:
+    image: ${DOCKER_REGISTRY-}kocdigitalpocwebapi
+    build:
+      context: .
+      dockerfile: src/KocDigitalPOC.WebApi/Dockerfile
+    depends_on:
+      - kocdigitalpoc.rabbitmq
+      - kocdigitalpoc.consumer
+      - kocdigitalpoc.producer
+
+  kocdigitalpoc.rabbitmq:
+    image: rabbitmq:3-management-alpine
+    container_name: kocdigitalpoc.rabbitmq
+    ports:
+        - 5672:5672
+        - 15672:15672
+
+  kocdigitalpoc.mssql:
+    image: "microsoft/mssql-server-linux"
+    container_name: kocdigitalpoc.mssql
+    environment:
+        SA_PASSWORD: "Kaan123456!"
+        ACCEPT_EULA: "Y"
+    ports:
+      - 1433:1433
