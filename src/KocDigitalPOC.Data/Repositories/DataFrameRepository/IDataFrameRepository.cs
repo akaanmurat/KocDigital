@@ -14,5 +14,7 @@ namespace KocDigitalPOC.Data.Repositories.DataFrameRepository
         Task Update(DataFrame dataFrame);
 
         Task<List<DataFrame>> Get(DataFrameFilter filter);
+
+        Task<int> GetCount();
     }
 }

@@ -68,6 +68,12 @@ namespace KocDigitalPOC.Data.Repositories.DataFrameRepository
             }
 
             return await query.ToListAsync();
-        }       
+        } 
+        
+        public async Task<int> GetCount()
+        {
+            var query = _context.Set<DataFrame>().AsQueryable();
+            return await query.CountAsync();
+        }
     }
 }

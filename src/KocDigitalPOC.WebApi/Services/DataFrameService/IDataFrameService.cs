@@ -14,5 +14,7 @@ namespace KocDigitalPOC.WebApi.Services.DataFrameService
         Task Update(DataFrame dataFrame);
 
         Task<List<DataFrame>> Get(DataFrameFilter filter);
+
+        Task<int> GetCount();
     }
 }

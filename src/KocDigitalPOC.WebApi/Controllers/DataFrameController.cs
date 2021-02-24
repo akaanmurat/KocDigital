@@ -24,6 +24,15 @@ namespace KocDigitalPOC.WebApi.Controllers
             return Ok(result);
         }
 
+        [HttpGet]
+        [Route("getCount")]
+        public async Task<IActionResult> GetCount()
+        {
+            var result = await _dataFrameService.GetCount();
+
+            return Ok(result);
+        }
+
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] DataFrame dataFrame)
         {
@@ -32,14 +41,14 @@ namespace KocDigitalPOC.WebApi.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> Put(DataFrame dataFrame)
+        public async Task<IActionResult> Put([FromBody] DataFrame dataFrame)
         {
             await _dataFrameService.Update(dataFrame);
             return Ok();
         }
 
         [HttpDelete]
-        public async Task<IActionResult> Delete(DataFrame dataFrame)
+        public async Task<IActionResult> Delete([FromBody] DataFrame dataFrame)
         {
             await _dataFrameService.Remove(dataFrame);
             return Ok();

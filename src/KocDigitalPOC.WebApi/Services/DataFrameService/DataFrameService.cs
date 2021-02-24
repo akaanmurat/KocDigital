@@ -34,5 +34,10 @@ namespace KocDigitalPOC.WebApi.Services.DataFrameService
         {
             return await _dataFrameRepository.Get(filter);
         }
+
+        public async Task<int> GetCount()
+        {
+            return await _dataFrameRepository.GetCount();
+        }
     }
 }
